@@ -5,10 +5,10 @@ from tkinter import ttk
 from control_frame import ControlPanel
 from timer_frame import TimeFrame
 from spectators_window import SpectatorsWindow
-from athlete_1_frame import Athlete_1_Frame
-from athlete_2_frame import Athlete_2_Frame
+from athlete_1_frame import Athlete_Frame
 
 class App:
+	# ROOT_FOLDER = 
 	def __init__(self, master):
 		self.master = master
 		self.main_frame = self.create_main_frame()
@@ -31,7 +31,7 @@ class App:
 			self.explanation,
 			self.timer,
 			 )
-		self.control_Panel = ControlPanel(
+		self.control_panel = ControlPanel(
 			self.master,
 			self.title_of_spectators_window,
 			self.name_1,
@@ -53,23 +53,24 @@ class App:
 		self.spectators_timer = self.spectators_window.spectators_timer
 		self.time_frame = TimeFrame(self.master, self.timer, self.spectators_timer)
 
-		self.athlete_1_frame = Athlete_1_Frame(
+		self.athlete_1 = Athlete_Frame(
 			self.master,
 			self.points_1,
 			self.adv_1,
 			self.fall_1,
 			)
-		self.athlete_2_frame = Athlete_2_Frame(
+		self.athlete_2 = Athlete_Frame(
 			self.master,
 			self.points_2,
 			self.adv_2,
 			self.fall_2,
 			)
+		self.frame_placement()
 
 
 	def create_main_frame(self):
 		self.master.geometry("850x300") 
-		icon = PhotoImage(file = "./img/icons/ickon.png")
+		icon = PhotoImage(file = "./../img/icons/ickon.png")
 		self.master.iconphoto(False, icon)
 		self.master.title("Carpe Diem")
 
@@ -91,6 +92,13 @@ class App:
 		self.group = StringVar(self.master, value='boys / 8-10 / newcomers')
 		self.explanation = StringVar(self.master, value='новички')
 		self.timer = StringVar(self.master, value='00:00')
+
+	def frame_placement(self):
+		self.control_panel.frame.grid(row=0, column=0)
+		self.time_frame.frame.grid(row=1, column=0)
+		self.athlete_1.frame.grid(row=2, column=0)
+		self.athlete_2.frame.grid(row=3, column=0)
+
 
 
 

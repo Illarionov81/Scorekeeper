@@ -17,7 +17,7 @@ class TimeFrame:
 
 	def create_frame(self):	
 		self.frame = Frame(self.master)
-		self.frame.grid(row=1, column=0)
+		
 		# установка начального значения времени
 		self.timer.set("{:02d}:{:02d}".format(self.default_time//60, self.default_time%60))
 

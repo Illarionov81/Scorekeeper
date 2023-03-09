@@ -4,7 +4,7 @@ from tkinter import ttk
 from utils import click_button
 
 
-class Athlete_1_Frame:
+class Athlete_Frame:
 	def __init__(
 		self,
 		master,
@@ -21,7 +21,6 @@ class Athlete_1_Frame:
 
 	def create_frame(self):
 		self.frame = Frame(self.master)
-		self.frame.grid(row=2, column=0)
 
 		for c in range(16): self.frame.columnconfigure(index=c, weight=1)
 

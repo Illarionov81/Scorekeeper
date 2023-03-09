@@ -42,7 +42,6 @@ class ControlPanel:
 
 	def create_frame(self):
 		self.frame = Frame(self.master)
-		self.frame.grid(row=0, column=0)
 
 		# for r in range(8): self.frame.rowconfigure(index=r, weight=1)
 		for c in range(3): self.frame.columnconfigure(index=c, weight=1)
