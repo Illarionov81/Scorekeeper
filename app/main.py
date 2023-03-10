@@ -5,10 +5,10 @@ from tkinter import ttk
 from control_frame import ControlPanel
 from timer_frame import TimeFrame
 from spectators_window import SpectatorsWindow
-from athlete_1_frame import Athlete_Frame
+from athlete_frame import Athlete_Frame
+
 
 class App:
-	# ROOT_FOLDER = 
 	def __init__(self, master):
 		self.master = master
 		self.main_frame = self.create_main_frame()
