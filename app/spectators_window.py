@@ -47,8 +47,8 @@ class SpectatorsWindow:
 
 	def create_window(self):
 		self.window = Toplevel(self.master)
-		# window.attributes('-fullscreen', True)
-		self.window.geometry("850x400")
+		self.window.attributes("-zoomed", True)
+		self.window.attributes( "-type", "toplevel")
 		self.window.title(self.title.get())
 
 		# Обновление заголовка окна при изменении переменной StringVar
