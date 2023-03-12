@@ -22,17 +22,18 @@ class TimeFrame:
 		self.timer.set("{:02d}:{:02d}".format(self.default_time//60, self.default_time%60))
 
 		for c in range(4): self.frame.columnconfigure(index=c, weight=1)
+		for r in range(3): self.frame.rowconfigure(index=r, weight=1)
 
-		self.entry_timer=ttk.Entry(self.frame, textvariable=self.timer, font=('Arial', 10))
-		self.entry_timer.grid(row=0, column=0, columnspan=3)
+		self.entry_timer=ttk.Entry(self.frame, textvariable=self.timer, font=('Arial', 10), justify='center')
+		self.entry_timer.grid(row=0, column=0, columnspan=4, sticky='ns')
 		self.start = ttk.Button(self.frame, text="Start", command=self.start_timer)
-		self.start.grid(row=1, column=0, rowspan=2)
+		self.start.grid(row=1, column=0, rowspan=2, sticky='nsew')
 		self.reset = ttk.Button(self.frame, text="Reset", command=self.reset_timer)
-		self.reset.grid(row=1, column=3, rowspan=2)
-		mp = ttk.Button(self.frame, text="+1 min", command=lambda: self.change_time(60)).grid(row=1, column=1)
-		mm = ttk.Button(self.frame, text="- 1 min", command=lambda: self.change_time(-60)).grid(row=1, column=2)
-		secp = ttk.Button(self.frame, text="+1 sec", command=lambda: self.change_time(1)).grid(row=3, column=1)
-		secm = ttk.Button(self.frame, text="-1 sec", command=lambda: self.change_time(-1)).grid(row=3, column=2)
+		self.reset.grid(row=1, column=3, rowspan=2, sticky='nsew')
+		mp = ttk.Button(self.frame, text="+1 min", command=lambda: self.change_time(60)).grid(row=1, column=1, sticky='nsew')
+		mm = ttk.Button(self.frame, text="- 1 min", command=lambda: self.change_time(-60)).grid(row=1, column=2, sticky='nsew')
+		secp = ttk.Button(self.frame, text="+1 sec", command=lambda: self.change_time(1)).grid(row=2, column=1, sticky='nsew')
+		secm = ttk.Button(self.frame, text="-1 sec", command=lambda: self.change_time(-1)).grid(row=2, column=2, sticky='nsew')
 
 
 	def reset_timer(self):

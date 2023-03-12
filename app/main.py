@@ -11,7 +11,7 @@ from athlete_frame import Athlete_Frame
 class App:
 	def __init__(self, master):
 		self.master = master
-		self.main_frame = self.create_main_frame()
+		self.create_main_frame()
 		self.create_variables()
 		self.spectators_window = SpectatorsWindow(
 			self.master,
@@ -69,7 +69,6 @@ class App:
 
 
 	def create_main_frame(self):
-		self.master.geometry("850x300") 
 		icon = PhotoImage(file = "./../img/icons/ickon.png")
 		self.master.iconphoto(False, icon)
 		self.master.title("Carpe Diem")
@@ -94,12 +93,15 @@ class App:
 		self.timer = StringVar(self.master, value='00:00')
 
 	def frame_placement(self):
-		self.control_panel.frame.grid(row=0, column=0)
-		self.time_frame.frame.grid(row=1, column=0)
-		self.athlete_1.frame.grid(row=2, column=0)
-		self.athlete_2.frame.grid(row=3, column=0)
+		for i in range(4):
+			self.master.grid_rowconfigure(i, weight=1)
 
+		self.master.grid_columnconfigure(0, weight=1)
 
+		self.control_panel.frame.grid(row=0, column=0, sticky='nsew')
+		self.time_frame.frame.grid(row=1, column=0, sticky='nsew')
+		self.athlete_1.frame.grid(row=2, column=0, sticky='nsew')
+		self.athlete_2.frame.grid(row=3, column=0, sticky='nsew')
 
 
 if __name__ == '__main__':
