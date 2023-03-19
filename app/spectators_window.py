@@ -54,14 +54,6 @@ class SpectatorsWindow:
 		# Обновление заголовка окна при изменении переменной StringVar
 		self.title.trace_add("write", self.update_title)
 
-		self.name_1.trace("w", lambda *args: to_uppercase(*args, text_var=self.name_1))
-		self.club_1.trace("w", lambda *args: to_uppercase(*args, text_var=self.club_1))
-		self.name_2.trace("w", lambda *args: to_uppercase(*args, text_var=self.name_2))
-		self.club_2.trace("w", lambda *args: to_uppercase(*args, text_var=self.club_2))
-		self.stage.trace("w", lambda *args: to_uppercase(*args, text_var=self.stage))
-		self.group.trace("w", lambda *args: to_uppercase(*args, text_var=self.group))
-		self.explanation.trace("w", lambda *args: to_uppercase(*args, text_var=self.explanation))
-
 		for r in range(8): self.window.rowconfigure(index=r, weight=1)
 		for c in range(3): self.window.columnconfigure(index=c, weight=1)
 
@@ -87,3 +79,11 @@ class SpectatorsWindow:
 		championship_stage=ttk.Label(self.window, textvariable=self.stage).grid(row=6, column=0)
 		championship_group=ttk.Label(self.window, textvariable=self.group).grid(row=7, column=0)
 		championship_explanation=ttk.Label(self.window, textvariable=self.explanation).grid(row=8, column=0)
+
+		self.name_1.trace("w", lambda *args: to_uppercase(*args, text_var=self.name_1))
+		self.club_1.trace("w", lambda *args: to_uppercase(*args, text_var=self.club_1))
+		self.name_2.trace("w", lambda *args: to_uppercase(*args, text_var=self.name_2))
+		self.club_2.trace("w", lambda *args: to_uppercase(*args, text_var=self.club_2))
+		self.stage.trace("w", lambda *args: to_uppercase(*args, text_var=self.stage))
+		self.group.trace("w", lambda *args: to_uppercase(*args, text_var=self.group))
+		self.explanation.trace("w", lambda *args: to_uppercase(*args, text_var=self.explanation))
