@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 
-from utils import create_label
+from utils import get_all_country
 
 
 class ControlPanel:
@@ -69,19 +69,20 @@ class ControlPanel:
 		explanation.grid(row=2, column=2, sticky='nsew')
 
 	def create_sporsmens_frame(self):
-		self.sportsments_frame = Frame(self.master)
-		self.sportsments_frame.configure(bg='#32323D')
+		self.sportsman_frame = Frame(self.master)
+		self.sportsman_frame.configure(bg='#32323D')
 
-		for r in range(6): self.sportsments_frame.rowconfigure(index=r, weight=1)
-		for c in range(4): self.sportsments_frame.columnconfigure(index=c, weight=1)
+		for r in range(6): self.sportsman_frame.rowconfigure(index=r, weight=1)
+		for c in range(5): self.sportsman_frame.columnconfigure(index=c, weight=1)
 
-		self.sportsments_frame.columnconfigure(index=0, weight=90, uniform="row1") # sportsmen name
-		self.sportsments_frame.columnconfigure(index=0, weight=90, uniform="row1") # club 
-		self.sportsments_frame.columnconfigure(index=1, weight=3, uniform="row1") # fall label
-		self.sportsments_frame.columnconfigure(index=1, weight=3, uniform="row1") # adv label
-		self.sportsments_frame.columnconfigure(index=2, weight=3, uniform="row1") # fall
-		self.sportsments_frame.columnconfigure(index=2, weight=3, uniform="row1") # adv
-		self.sportsments_frame.columnconfigure(index=3, weight=6, uniform="row1") # points
+		self.sportsman_frame.columnconfigure(index=0, weight=6, uniform="row1") # sportsmen name
+		self.sportsman_frame.columnconfigure(index=1, weight=90, uniform="row1") # sportsmen name
+		self.sportsman_frame.columnconfigure(index=1, weight=90, uniform="row1") # club 
+		self.sportsman_frame.columnconfigure(index=2, weight=3, uniform="row1") # fall label
+		self.sportsman_frame.columnconfigure(index=2, weight=3, uniform="row1") # adv label
+		self.sportsman_frame.columnconfigure(index=3, weight=3, uniform="row1") # fall
+		self.sportsman_frame.columnconfigure(index=3, weight=3, uniform="row1") # adv
+		self.sportsman_frame.columnconfigure(index=4, weight=6, uniform="row1") # points
 
 		style = ttk.Style()
 		style.configure(
@@ -112,35 +113,58 @@ class ControlPanel:
 			anchor="center",
 			)
 
-		name_1 = ttk.Entry(self.sportsments_frame, textvariable=self.name_1)
-		club_1 = ttk.Entry(self.sportsments_frame, textvariable=self.club_1)
-		fall_1 = ttk.Entry(self.sportsments_frame, textvariable=self.fall_1, justify='center')
-		adv_1 = ttk.Entry(self.sportsments_frame, textvariable=self.adv_1, justify='center')
-		points_1 = ttk.Entry(self.sportsments_frame, textvariable=self.points_1, style=self.entry_style_1, font=('Arial', 18, 'bold'), justify='center')
+		country_name = get_all_country()
+		flag_box = ttk.Combobox(values=country_name)
+		default_flag = 'KG.png'
+		self.flag_path = f"./../img/flags-iso/{default_flag}"
 
-		name_2 = ttk.Entry(self.sportsments_frame, textvariable=self.name_2)
-		club_2 = ttk.Entry(self.sportsments_frame, textvariable=self.club_2)
-		fall_2 = ttk.Entry(self.sportsments_frame, textvariable=self.fall_2, justify='center')
-		adv_2 = ttk.Entry(self.sportsments_frame, textvariable=self.adv_2, justify='center')
-		points_2 = ttk.Entry(self.sportsments_frame, textvariable=self.points_2, style=self.entry_style_2, font=('Arial', 18, 'bold'), justify='center')
+		self.flag_1 = ttk.Label(self.sportsman_frame)
+		name_1 = ttk.Entry(self.sportsman_frame, textvariable=self.name_1)
+		club_1 = ttk.Entry(self.sportsman_frame, textvariable=self.club_1)
+		fall_1 = ttk.Entry(self.sportsman_frame, textvariable=self.fall_1, justify='center')
+		adv_1 = ttk.Entry(self.sportsman_frame, textvariable=self.adv_1, justify='center')
+		points_1 = ttk.Entry(self.sportsman_frame, textvariable=self.points_1, style=self.entry_style_1, font=('Arial', 18, 'bold'), justify='center')
 
-		label_1_fall = ttk.Label(self.sportsments_frame, text='fall', style='label_1.TLabel',  font=('Arial', 8, 'bold'))
-		label_1_adv = ttk.Label(self.sportsments_frame, text='adv', style='label_1.TLabel', font=('Arial', 8, 'bold'))
-		label_2_fall = ttk.Label(self.sportsments_frame, text='fall', style='label_2.TLabel', font=('Arial', 8, 'bold'))
-		label_2_adv = ttk.Label(self.sportsments_frame, text='adv', style='label_2.TLabel', font=('Arial', 8, 'bold'))
+		self.flag_2 = ttk.Label(self.sportsman_frame)
+		name_2 = ttk.Entry(self.sportsman_frame, textvariable=self.name_2)
+		club_2 = ttk.Entry(self.sportsman_frame, textvariable=self.club_2)
+		fall_2 = ttk.Entry(self.sportsman_frame, textvariable=self.fall_2, justify='center')
+		adv_2 = ttk.Entry(self.sportsman_frame, textvariable=self.adv_2, justify='center')
+		points_2 = ttk.Entry(self.sportsman_frame, textvariable=self.points_2, style=self.entry_style_2, font=('Arial', 18, 'bold'), justify='center')
 
-		name_1.grid(row=0, column=0, sticky='nsew')
-		club_1.grid(row=1, column=0, sticky='nsew')
-		label_1_fall.grid(row=0, column=1, sticky='nsew')
-		label_1_adv.grid(row=1, column=1, sticky='nsew')
-		fall_1.grid(row=0, column=2, sticky='nsew')
-		adv_1.grid(row=1, column=2, sticky='nsew')
-		points_1.grid(row=0, column=3, rowspan=2, sticky='nsew')
+		label_1_fall = ttk.Label(self.sportsman_frame, text='fall', style='label_1.TLabel',  font=('Arial', 8, 'bold'))
+		label_1_adv = ttk.Label(self.sportsman_frame, text='adv', style='label_1.TLabel', font=('Arial', 8, 'bold'))
+		label_2_fall = ttk.Label(self.sportsman_frame, text='fall', style='label_2.TLabel', font=('Arial', 8, 'bold'))
+		label_2_adv = ttk.Label(self.sportsman_frame, text='adv', style='label_2.TLabel', font=('Arial', 8, 'bold'))
 
-		name_2.grid(row=3, column=0, sticky='nsew')
-		club_2.grid(row=4, column=0, sticky='nsew')
-		label_2_fall.grid(row=3, column=1, sticky='nsew')
-		label_2_adv.grid(row=4, column=1, sticky='nsew')
-		fall_2.grid(row=3, column=2, sticky='nsew')
-		adv_2.grid(row=4, column=2, sticky='nsew')
-		points_2.grid(row=3, column=3, rowspan=2, sticky='nsew')
+		self.flag_1.grid(row=0, column=0, rowspan=2, sticky='nsew')
+		name_1.grid(row=0, column=1, sticky='nsew')
+		club_1.grid(row=1, column=1, sticky='nsew')
+		label_1_fall.grid(row=0, column=2, sticky='nsew')
+		label_1_adv.grid(row=1, column=2, sticky='nsew')
+		fall_1.grid(row=0, column=3, sticky='nsew')
+		adv_1.grid(row=1, column=3, sticky='nsew')
+		points_1.grid(row=0, column=4, rowspan=2, sticky='nsew')
+
+		self.flag_2.grid(row=3, column=0, rowspan=2, sticky='nsew')
+		name_2.grid(row=3, column=1, sticky='nsew')
+		club_2.grid(row=4, column=1, sticky='nsew')
+		label_2_fall.grid(row=3, column=2, sticky='nsew')
+		label_2_adv.grid(row=4, column=2, sticky='nsew')
+		fall_2.grid(row=3, column=3, sticky='nsew')
+		adv_2.grid(row=4, column=3, sticky='nsew')
+		points_2.grid(row=3, column=4, rowspan=2, sticky='nsew')
+
+		self.sportsman_frame.bind('<Configure>', self.img_size_configure)
+
+	def img_size_configure(self, event):
+	    rate = 1
+	    if event.width <= 650:
+	    	rate = 3
+	    if 650 < event.width <= 1150:
+	    	rate = 2
+
+	    self.flag_img = PhotoImage(file=self.flag_path)
+	    self.flag_img = self.flag_img.subsample(rate)
+	    self.flag_1.config(image=self.flag_img, anchor="center")
+	    self.flag_2.config(image=self.flag_img, anchor="center")
