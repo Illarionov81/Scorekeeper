@@ -115,7 +115,7 @@ class App:
 		self.master.grid_columnconfigure(0, weight=1)
 
 		self.control_panel.general_info_frame.grid(row=0, column=0, sticky='nsew')
-		self.control_panel.sportsments_frame.grid(row=1, column=0, sticky='nsew')
+		self.control_panel.sportsman_frame.grid(row=1, column=0, sticky='nsew')
 		self.time_frame.frame.grid(row=2, column=0, sticky='nsew')
 		self.athlete_1.frame.grid(row=3, column=0, sticky='nsew')
 		self.athlete_2.frame.grid(row=4, column=0, sticky='nsew')
