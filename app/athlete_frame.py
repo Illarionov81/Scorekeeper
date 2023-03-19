@@ -65,7 +65,6 @@ class Athlete_Frame:
 
 		style = ttk.Style()
 		style.configure(self.style_name, background=self.color)
-		print(self.style_name)
 
 		btn1.configure(style=self.style_name)
 		btn2.configure(style=self.style_name)
