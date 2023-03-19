@@ -11,11 +11,15 @@ class Athlete_Frame:
 		points_1,
 		adv_1,
 		fall_1,
+		color,
+		style_name,
 		):
 		self.master = master
 		self.points_1 = points_1
 		self.adv_1 = adv_1
 		self.fall_1 = fall_1
+		self.color = color
+		self.style_name = style_name
 		self.create_frame()
 
 
@@ -58,3 +62,24 @@ class Athlete_Frame:
 		btn_advm.grid(row=1, column=6, sticky='nsew')
 		btn_fallp.grid(row=0, column=7, sticky='nsew')
 		btn_fallm.grid(row=1, column=7, sticky='nsew')
+
+		style = ttk.Style()
+		style.configure(self.style_name, background=self.color)
+		print(self.style_name)
+
+		btn1.configure(style=self.style_name)
+		btn2.configure(style=self.style_name)
+		btn3.configure(style=self.style_name)
+		btn4.configure(style=self.style_name)
+		btn5.configure(style=self.style_name)
+		btn6.configure(style=self.style_name)
+		btn_m1.configure(style=self.style_name)
+		btn_m2.configure(style=self.style_name)
+		btn_m3.configure(style=self.style_name)
+		btn_m4.configure(style=self.style_name)
+		btn_m5.configure(style=self.style_name)
+		btn_m6.configure(style=self.style_name)
+		btn_advp.configure(style=self.style_name)
+		btn_advm.configure(style=self.style_name)
+		btn_fallp.configure(style=self.style_name)
+		btn_fallm.configure(style=self.style_name)

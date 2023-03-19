@@ -11,6 +11,12 @@ from athlete_frame import Athlete_Frame
 class App:
 	def __init__(self, master):
 		self.master = master
+		self.color_1 = '#CC443E'
+		self.color_2 = '#2A4EB9'
+		self.button_style_1 = '1.TButton'
+		self.button_style_2 = '2.TButton'
+		self.entry_style_1 = '1.TEntry'
+		self.entry_style_2 = '2.TEntry'
 		self.create_main_frame()
 		self.create_variables()
 		self.spectators_window = SpectatorsWindow(
@@ -34,6 +40,10 @@ class App:
 		self.control_panel = ControlPanel(
 			self.master,
 			self.title_of_spectators_window,
+			self.color_1,
+			self.color_2,
+			self.entry_style_1,
+			self.entry_style_2,
 			self.name_1,
 			self.club_1,
 			self.points_1,
@@ -58,21 +68,27 @@ class App:
 			self.points_1,
 			self.adv_1,
 			self.fall_1,
+			self.color_1,
+			self.button_style_1,
 			)
 		self.athlete_2 = Athlete_Frame(
 			self.master,
 			self.points_2,
 			self.adv_2,
 			self.fall_2,
+			self.color_2,
+			self.button_style_2,
 			)
 		self.frame_placement()
-
 
 	def create_main_frame(self):
 		icon = PhotoImage(file = "./../img/icons/ickon.png")
 		self.master.iconphoto(False, icon)
 		self.master.title("Carpe Diem")
-
+		self.master.configure(bg='#312F3A')
+		self.master.geometry("600x300")
+		self.master.resizable(True, True)
+		
 	def create_variables(self):
 		self.title_of_spectators_window = StringVar(self.master, value='Соревнования по ....')
 		self.name_1 = StringVar(self.master, value='set name 1')  # TODO add flag choise
@@ -93,15 +109,16 @@ class App:
 		self.timer = StringVar(self.master, value='00:00')
 
 	def frame_placement(self):
-		for i in range(4):
+		for i in range(5):
 			self.master.grid_rowconfigure(i, weight=1)
 
 		self.master.grid_columnconfigure(0, weight=1)
 
-		self.control_panel.frame.grid(row=0, column=0, sticky='nsew')
-		self.time_frame.frame.grid(row=1, column=0, sticky='nsew')
-		self.athlete_1.frame.grid(row=2, column=0, sticky='nsew')
-		self.athlete_2.frame.grid(row=3, column=0, sticky='nsew')
+		self.control_panel.general_info_frame.grid(row=0, column=0, sticky='nsew')
+		self.control_panel.sportsments_frame.grid(row=1, column=0, sticky='nsew')
+		self.time_frame.frame.grid(row=2, column=0, sticky='nsew')
+		self.athlete_1.frame.grid(row=3, column=0, sticky='nsew')
+		self.athlete_2.frame.grid(row=4, column=0, sticky='nsew')
 
 
 if __name__ == '__main__':

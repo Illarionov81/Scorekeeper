@@ -24,7 +24,7 @@ class TimeFrame:
 		for c in range(4): self.frame.columnconfigure(index=c, weight=1)
 		for r in range(3): self.frame.rowconfigure(index=r, weight=1)
 
-		self.entry_timer=ttk.Entry(self.frame, textvariable=self.timer, font=('Arial', 10), justify='center')
+		self.entry_timer=ttk.Entry(self.frame, textvariable=self.timer, font=('Arial', 18), justify='center')
 		self.entry_timer.grid(row=0, column=0, columnspan=4, sticky='ns')
 		self.start = ttk.Button(self.frame, text="Start", command=self.start_timer)
 		self.start.grid(row=1, column=0, rowspan=2, sticky='nsew')
