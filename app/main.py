@@ -85,8 +85,8 @@ class App:
 		icon = PhotoImage(file = "./../img/icons/ickon.png")
 		self.master.iconphoto(False, icon)
 		self.master.title("Carpe Diem")
-		self.master.configure(bg='#312F3A')
-		self.master.geometry("600x300")
+		self.master.configure(bg='#A09DA5')
+		self.master.geometry("640x310")
 		self.master.resizable(True, True)
 		
 	def create_variables(self):
@@ -109,16 +109,24 @@ class App:
 		self.timer = StringVar(self.master, value='00:00')
 
 	def frame_placement(self):
-		for i in range(5):
+		for i in range(6):
 			self.master.grid_rowconfigure(i, weight=1)
 
 		self.master.grid_columnconfigure(0, weight=1)
 
+		self.master.rowconfigure(index=0, weight=13, uniform="row1")
+		self.master.rowconfigure(index=1, weight=6, uniform="row1")
+		self.master.rowconfigure(index=2, weight=28, uniform="row1")
+		self.master.rowconfigure(index=3, weight=28, uniform="row1")
+		self.master.rowconfigure(index=4, weight=14, uniform="row1")
+		self.master.rowconfigure(index=5, weight=14, uniform="row1")
+
 		self.control_panel.general_info_frame.grid(row=0, column=0, sticky='nsew')
-		self.control_panel.sportsman_frame.grid(row=1, column=0, sticky='nsew')
-		self.time_frame.frame.grid(row=2, column=0, sticky='nsew')
-		self.athlete_1.frame.grid(row=3, column=0, sticky='nsew')
-		self.athlete_2.frame.grid(row=4, column=0, sticky='nsew')
+		self.control_panel.flag_choice_frame.grid(row=1, column=0, sticky='nsew')
+		self.control_panel.sportsman_frame.grid(row=2, column=0, sticky='nsew')
+		self.time_frame.frame.grid(row=3, column=0, sticky='nsew')
+		self.athlete_1.frame.grid(row=4, column=0, sticky='nsew')
+		self.athlete_2.frame.grid(row=5, column=0, sticky='nsew')
 
 
 if __name__ == '__main__':
