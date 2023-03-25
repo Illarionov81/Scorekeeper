@@ -105,8 +105,10 @@ class ControlPanel:
 	    flag_path = self.flag_str.format(country=selected)
 	    width = self.sportsman_frame.winfo_width()
 	    if event.widget == self.flag_box1:
+	    	self.flag_path_1 = flag_path
 	    	self.flag_img_1 = self.change_flag(width, self.flag_1, flag_path)
 	    if event.widget == self.flag_box2:
+	    	self.flag_path_2 = flag_path
 	    	self.flag_img_2 = self.change_flag(width, self.flag_2, flag_path)
 	    
 
