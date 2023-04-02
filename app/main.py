@@ -17,28 +17,18 @@ else:
 class App:
 	def __init__(self, master):
 		self.master = master
-		self.set_styles_name()
-		Style(
-			self.color_1,
-			self.color_2,
-			self.button_style_1,
-			self.button_style_2,
-			self.entry_style_1,
-			self.entry_style_2,
-			self.label_1_style,
-			self.label_2_style,
-			)
+		self.styles = Style()
 		self.create_main_frame()
 		self.create_variables()
 		self.control_panel = ControlPanel(
 			self.master,
 			self.title_of_spectators_window,
-			self.color_1,
-			self.color_2,
-			self.entry_style_1,
-			self.entry_style_2,
-			self.label_1_style,
-			self.label_2_style,
+			self.styles.color_1,
+			self.styles.color_2,
+			self.styles.entry_style_1,
+			self.styles.entry_style_2,
+			self.styles.label_1_style,
+			self.styles.label_2_style,
 			self.name_1,
 			self.club_1,
 			self.points_1,
@@ -57,10 +47,10 @@ class App:
 		self.spectators_window = SpectatorsWindow(
 			self.master,
 			self.title_of_spectators_window,
-			self.color_1,
-			self.color_2,
-			self.entry_style_1,
-			self.entry_style_2,
+			self.styles.color_1,
+			self.styles.color_2,
+			self.styles.entry_style_1,
+			self.styles.entry_style_2,
 			self.name_1,
 			self.club_1,
 			self.points_1,
@@ -86,16 +76,16 @@ class App:
 			self.points_1,
 			self.adv_1,
 			self.fall_1,
-			self.color_1,
-			self.button_style_1,
+			self.styles.color_1,
+			self.styles.button_style_1,
 			)
 		self.athlete_2 = Athlete_Frame(
 			self.master,
 			self.points_2,
 			self.adv_2,
 			self.fall_2,
-			self.color_2,
-			self.button_style_2,
+			self.styles.color_2,
+			self.styles.button_style_2,
 			)
 		self.frame_placement()
 
@@ -106,16 +96,6 @@ class App:
 		self.master.configure(bg='#A09DA5')
 		self.master.geometry("740x480")
 		self.master.resizable(True, True)
-
-	def set_styles_name(self):
-		self.color_1 = '#CC443E'
-		self.color_2 = '#2A4EB9'
-		self.button_style_1 = '1.TButton'
-		self.button_style_2 = '2.TButton'
-		self.entry_style_1 = '1.TEntry'
-		self.entry_style_2 = '2.TEntry'
-		self.label_1_style = 'label_1.TLabel'
-		self.label_2_style = 'label_2.TLabel'
 		
 	def create_variables(self):
 		self.title_of_spectators_window = StringVar(self.master, value='Соревнования по ....')
