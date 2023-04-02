@@ -25,9 +25,6 @@ class ControlPanel:
 		points_2,
 		fall_2,
 		adv_2,
-		stage,
-		group,
-		explanation,
 		timer,
 		):
 		self.master = master
@@ -48,9 +45,6 @@ class ControlPanel:
 		self.points_2 = points_2
 		self.fall_2 = fall_2
 		self.adv_2 = adv_2
-		self.stage = stage
-		self.group = group
-		self.explanation = explanation
 		self.timer = timer
 		self.create_general_info_frame()
 		self.create_flag_choice()
@@ -101,12 +95,17 @@ class ControlPanel:
 		]
 
 		self.title = ttk.Entry(self.general_info_frame, textvariable=self.title, justify='center')
+
 		self.stage_label = ttk.Label(self.general_info_frame, text='Stage: ', anchor='c')
 		self.group_label = ttk.Label(self.general_info_frame, text='Group: ', anchor='c')
 		self.belt_label = ttk.Label(self.general_info_frame, text='Belt: ', anchor='c')
+
 		self.stage = ttk.Combobox(self.general_info_frame, textvariable=self.stage_val, values=stage_choice, justify='center')
+		self.stage.current(0)
 		self.group = ttk.Combobox(self.general_info_frame, textvariable=self.group_val, values=group_choice, justify='center')
+		self.group.current(0)
 		self.belt = ttk.Combobox(self.general_info_frame, textvariable=self.belt_val, values=belt_choice, justify='center')
+		self.belt.current(0)
 
 		self.title.grid(row=0, column=0, columnspan=3, sticky='nsew')
 		self.stage_label.grid(row=2, column=0, sticky='nsew')
@@ -125,7 +124,7 @@ class ControlPanel:
 		country_name = sorted(get_all_country())
 		self.flag_str = "./../img/flags-iso/{country}"
 		self.flag_var_1 = StringVar(value='KG.png')
-		self.flag_var_2 = StringVar(value='RU.png')
+		self.flag_var_2 = StringVar(value='KG.png')
 		self.flag_path_1 = self.flag_str.format(country=self.flag_var_1.get())
 		self.flag_path_2 = self.flag_str.format(country=self.flag_var_2.get())
 		self.flag_path_1_for_spectators = StringVar(value=self.flag_path_1)
@@ -171,12 +170,9 @@ class ControlPanel:
 		for c in range(5): self.sportsman_frame.columnconfigure(index=c, weight=1)
 
 		self.sportsman_frame.columnconfigure(index=0, weight=6, uniform="row1") # flag
-		self.sportsman_frame.columnconfigure(index=1, weight=90, uniform="row1") # sportsmen name
-		self.sportsman_frame.columnconfigure(index=1, weight=90, uniform="row1") # club 
-		self.sportsman_frame.columnconfigure(index=2, weight=3, uniform="row1") # fall label
-		self.sportsman_frame.columnconfigure(index=2, weight=3, uniform="row1") # adv label
-		self.sportsman_frame.columnconfigure(index=3, weight=3, uniform="row1") # fall
-		self.sportsman_frame.columnconfigure(index=3, weight=3, uniform="row1") # adv
+		self.sportsman_frame.columnconfigure(index=1, weight=90, uniform="row1") # sportsmen name & club
+		self.sportsman_frame.columnconfigure(index=2, weight=3, uniform="row1") # fall label & adv label
+		self.sportsman_frame.columnconfigure(index=3, weight=3, uniform="row1") # fall & adv
 		self.sportsman_frame.columnconfigure(index=4, weight=6, uniform="row1") # points
 
 		self.flag_1 = ttk.Label(self.sportsman_frame)

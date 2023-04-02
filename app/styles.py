@@ -18,6 +18,8 @@ class Style:
 		self.entry_style_2 = '2.TEntry'
 		self.label_1_style = 'label_1.TLabel'
 		self.label_2_style = 'label_2.TLabel'
+		self.fall_point_style = 'label_3.TLabel'
+		self.dark = 'label_4.TLabel'
 
 	def create_all_styles(self):
 		ttk.Style().configure(
@@ -46,4 +48,18 @@ class Style:
 			foreground="white",
 			anchor="center",
 			font=('Arial', 8, 'bold'),
+			)
+
+		ttk.Style().configure(
+			self.fall_point_style,
+			background='#33313B',
+			foreground="white",
+			anchor="center",
+			font=('Arial', 12, 'bold'),
+			)
+
+		ttk.Style().configure(
+			self.dark,
+			background='#33313B',
+			foreground="#C9C9D2",
 			)

@@ -14,7 +14,6 @@ class TimeFrame:
 		self.time_lock = threading.Lock()
 		self.create_frame()
 
-
 	def create_frame(self):	
 		self.frame = Frame(self.master)
 		
@@ -34,7 +33,6 @@ class TimeFrame:
 		mm = ttk.Button(self.frame, text="- 1 min", command=lambda: self.change_time(-60)).grid(row=1, column=2, sticky='nsew')
 		secp = ttk.Button(self.frame, text="+1 sec", command=lambda: self.change_time(1)).grid(row=2, column=1, sticky='nsew')
 		secm = ttk.Button(self.frame, text="-1 sec", command=lambda: self.change_time(-1)).grid(row=2, column=2, sticky='nsew')
-
 
 	def reset_timer(self):
 	    self.started = False
@@ -65,22 +63,8 @@ class TimeFrame:
 	    if self.on_pause:
 	        t = self.entry_timer.after(100, self.time_ticker)
 	        return
-
-	    minutes, seconds = map(int, self.timer.get().split(':')) # TODO добавить валидацию поля в формате 00:00
-	    if seconds == 0:
-	        if minutes == 0:
-	            self.entry_timer.configure(foreground='red')
-	            self.championship_timer.configure(foreground='red')
-	            with self.time_lock:
-	                self.timer.set("00:00")
-	            return
-	        minutes -= 1
-	        seconds = 59
-	    else:
-	        seconds -= 1
-	    with self.time_lock:
-	        self.timer.set("{:02d}:{:02d}".format(minutes, seconds))
-
+	        
+	    self.change_time(-1)
 	    t = self.entry_timer.after(1000, self.time_ticker)
 
 
@@ -96,7 +80,4 @@ class TimeFrame:
 	        self.championship_timer.configure(foreground='red')
 	        with self.time_lock:
 	            self.timer.set("{:02d}:{:02d}".format(new_time//60, new_time%60))
-	    else:
-	        self.entry_timer.configure(foreground='red')
-	        self.championship_timer.configure(foreground='red')
         

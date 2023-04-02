@@ -39,9 +39,6 @@ class App:
 			self.points_2,
 			self.fall_2,
 			self.adv_2,
-			self.stage,
-			self.group,
-			self.explanation,
 			self.timer,
 			)
 		self.spectators_window = SpectatorsWindow(
@@ -49,8 +46,10 @@ class App:
 			self.title_of_spectators_window,
 			self.styles.color_1,
 			self.styles.color_2,
-			self.styles.entry_style_1,
-			self.styles.entry_style_2,
+			self.styles.label_1_style,
+			self.styles.label_2_style,
+			self.styles.fall_point_style,
+			self.styles.dark,
 			self.name_1,
 			self.club_1,
 			self.points_1,
@@ -61,9 +60,9 @@ class App:
 			self.points_2,
 			self.fall_2,
 			self.adv_2,
-			self.stage,
-			self.group,
-			self.explanation,
+			self.control_panel.stage_val,
+			self.control_panel.group_val,
+			self.control_panel.belt_val,
 			self.timer,
 			self.control_panel.flag_path_1_for_spectators,
 			self.control_panel.flag_path_2_for_spectators,
@@ -111,9 +110,6 @@ class App:
 		self.fall_2 = IntVar(self.master, value=0)
 		self.adv_2 = IntVar(self.master, value=0)
 
-		self.stage = StringVar(self.master, value='final')
-		self.group = StringVar(self.master, value='boys / 8-10 / newcomers')
-		self.explanation = StringVar(self.master, value='новички')
 		self.timer = StringVar(self.master, value='00:00')
 
 	def frame_placement(self):
