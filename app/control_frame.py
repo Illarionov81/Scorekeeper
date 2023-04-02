@@ -13,6 +13,8 @@ class ControlPanel:
 		color_2,
 		entry_style_1,
 		entry_style_2,
+		label_1_style,
+		label_2_style,
 		name_1,
 		club_1,
 		points_1,
@@ -34,6 +36,8 @@ class ControlPanel:
 		self.color_2 = color_2,
 		self.entry_style_1 = entry_style_1,
 		self.entry_style_2 = entry_style_2,
+		self.label_1_style = label_1_style
+		self.label_2_style = label_2_style
 		self.name_1 = name_1
 		self.club_1 = club_1
 		self.points_1 = points_1
@@ -56,18 +60,61 @@ class ControlPanel:
 		self.general_info_frame = Frame(self.master)
 		self.general_info_frame.configure(bg='#A09DA5')
 
-		for r in range(4): self.general_info_frame.rowconfigure(index=r, weight=1)
+		for r in range(5): self.general_info_frame.rowconfigure(index=r, weight=1)
 		for c in range(3): self.general_info_frame.columnconfigure(index=c, weight=1)
 
-		title = ttk.Entry(self.general_info_frame, textvariable=self.title, justify='center')
-		stage=ttk.Entry(self.general_info_frame, textvariable=self.stage)
-		group=ttk.Entry(self.general_info_frame, textvariable=self.group)
-		explanation=ttk.Entry(self.general_info_frame, textvariable=self.explanation)
+		self.stage_val = StringVar()
+		self.group_val = StringVar()
+		self.belt_val = StringVar()
 
-		title.grid(row=0, column=0, columnspan=3, sticky='nsew')
-		stage.grid(row=2, column=0, sticky='nsew')
-		group.grid(row=2, column=1, sticky='nsew')
-		explanation.grid(row=2, column=2, sticky='nsew')
+		stage_choice = [
+		'EIGHTH-FINALS',
+		'QUARTERFINALS',
+		'SEMIFINALS',
+		'FINALS',
+		]
+
+		group_choice = [
+		'Kids 1',
+		'Kids 2',
+		'Kids 3',
+		'Infant',
+		'Junior',
+		'Junior',
+		'Youth',
+		'Amateur',
+		'Professional',
+		'Master 1',
+		'Master 2',
+		]
+		
+		belt_choice = [
+		'White',
+		'Grey',
+		'Yellow',
+		'Orange',
+		'Green',
+		'Blue',
+		'Purple',
+		'Brown',
+		'Black',
+		]
+
+		self.title = ttk.Entry(self.general_info_frame, textvariable=self.title, justify='center')
+		self.stage_label = ttk.Label(self.general_info_frame, text='Stage: ', anchor='c')
+		self.group_label = ttk.Label(self.general_info_frame, text='Group: ', anchor='c')
+		self.belt_label = ttk.Label(self.general_info_frame, text='Belt: ', anchor='c')
+		self.stage = ttk.Combobox(self.general_info_frame, textvariable=self.stage_val, values=stage_choice, justify='center')
+		self.group = ttk.Combobox(self.general_info_frame, textvariable=self.group_val, values=group_choice, justify='center')
+		self.belt = ttk.Combobox(self.general_info_frame, textvariable=self.belt_val, values=belt_choice, justify='center')
+
+		self.title.grid(row=0, column=0, columnspan=3, sticky='nsew')
+		self.stage_label.grid(row=2, column=0, sticky='nsew')
+		self.group_label.grid(row=2, column=1, sticky='nsew')
+		self.belt_label.grid(row=2, column=2, sticky='nsew')
+		self.stage.grid(row=3, column=0, sticky='nsew')
+		self.group.grid(row=3, column=1, sticky='nsew')
+		self.belt.grid(row=3, column=2, sticky='nsew')
 
 	def create_flag_choice(self):
 		self.flag_choice_frame = Frame(self.master)
@@ -81,6 +128,8 @@ class ControlPanel:
 		self.flag_var_2 = StringVar(value='RU.png')
 		self.flag_path_1 = self.flag_str.format(country=self.flag_var_1.get())
 		self.flag_path_2 = self.flag_str.format(country=self.flag_var_2.get())
+		self.flag_path_1_for_spectators = StringVar(value=self.flag_path_1)
+		self.flag_path_2_for_spectators = StringVar(value=self.flag_path_2)
 
 
 		self.flag_label_1 = ttk.Label(self.flag_choice_frame, text='flag sportsman 1: ', anchor='e')
@@ -105,9 +154,11 @@ class ControlPanel:
 	    flag_path = self.flag_str.format(country=selected)
 	    width = self.sportsman_frame.winfo_width()
 	    if event.widget == self.flag_box1:
+	    	self.flag_path_1_for_spectators.set(flag_path)
 	    	self.flag_path_1 = flag_path
 	    	self.flag_img_1 = self.change_flag(width, self.flag_1, flag_path)
 	    if event.widget == self.flag_box2:
+	    	self.flag_path_2_for_spectators.set(flag_path)
 	    	self.flag_path_2 = flag_path
 	    	self.flag_img_2 = self.change_flag(width, self.flag_2, flag_path)
 	    
@@ -119,7 +170,7 @@ class ControlPanel:
 		for r in range(8): self.sportsman_frame.rowconfigure(index=r, weight=1)
 		for c in range(5): self.sportsman_frame.columnconfigure(index=c, weight=1)
 
-		self.sportsman_frame.columnconfigure(index=0, weight=6, uniform="row1") # sportsmen name
+		self.sportsman_frame.columnconfigure(index=0, weight=6, uniform="row1") # flag
 		self.sportsman_frame.columnconfigure(index=1, weight=90, uniform="row1") # sportsmen name
 		self.sportsman_frame.columnconfigure(index=1, weight=90, uniform="row1") # club 
 		self.sportsman_frame.columnconfigure(index=2, weight=3, uniform="row1") # fall label
@@ -127,35 +178,6 @@ class ControlPanel:
 		self.sportsman_frame.columnconfigure(index=3, weight=3, uniform="row1") # fall
 		self.sportsman_frame.columnconfigure(index=3, weight=3, uniform="row1") # adv
 		self.sportsman_frame.columnconfigure(index=4, weight=6, uniform="row1") # points
-
-		style = ttk.Style()
-		style.configure(
-			self.entry_style_1,
-			fieldbackground=self.color_1,
-			foreground='white',
-			)
-
-		style_2 = ttk.Style()
-		style_2.configure(
-			self.entry_style_2,
-			fieldbackground=self.color_2,
-			foreground='white',
-			)
-
-		label_1_style = ttk.Style().configure(
-			'label_1.TLabel',
-			background=self.color_1,
-			foreground="white",
-			anchor="center",
-			)
-
-		label_2_style = ttk.Style()
-		label_2_style.configure(
-			'label_2.TLabel',
-			background=self.color_2,
-			foreground="white",
-			anchor="center",
-			)
 
 		self.flag_1 = ttk.Label(self.sportsman_frame)
 		name_1 = ttk.Entry(self.sportsman_frame, textvariable=self.name_1)
@@ -171,10 +193,10 @@ class ControlPanel:
 		adv_2 = ttk.Entry(self.sportsman_frame, textvariable=self.adv_2, justify='center')
 		points_2 = ttk.Entry(self.sportsman_frame, textvariable=self.points_2, style=self.entry_style_2, font=('Arial', 18, 'bold'), justify='center')
 
-		label_1_fall = ttk.Label(self.sportsman_frame, text='fall', style='label_1.TLabel',  font=('Arial', 8, 'bold'))
-		label_1_adv = ttk.Label(self.sportsman_frame, text='adv', style='label_1.TLabel', font=('Arial', 8, 'bold'))
-		label_2_fall = ttk.Label(self.sportsman_frame, text='fall', style='label_2.TLabel', font=('Arial', 8, 'bold'))
-		label_2_adv = ttk.Label(self.sportsman_frame, text='adv', style='label_2.TLabel', font=('Arial', 8, 'bold'))
+		label_1_fall = ttk.Label(self.sportsman_frame, text='fall', style=self.label_1_style)
+		label_1_adv = ttk.Label(self.sportsman_frame, text='adv', style=self.label_1_style)
+		label_2_fall = ttk.Label(self.sportsman_frame, text='fall', style=self.label_2_style)
+		label_2_adv = ttk.Label(self.sportsman_frame, text='adv', style=self.label_2_style)
 
 		self.flag_1.grid(row=0, column=0, rowspan=2, sticky='nsew')
 		name_1.grid(row=0, column=1, sticky='nsew')
