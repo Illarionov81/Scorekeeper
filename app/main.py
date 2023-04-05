@@ -98,14 +98,14 @@ class App:
 		
 	def create_variables(self):
 		self.title_of_spectators_window = StringVar(self.master, value='Соревнования по ....')
-		self.name_1 = StringVar(self.master, value='set name 1')
-		self.club_1 = StringVar(self.master, value='set club')
+		self.name_1 = StringVar(self.master, value='NAME OF SPORTSMAN 1')
+		self.club_1 = StringVar(self.master, value='SPORT CLUB NAME 1')
 		self.points_1 = IntVar(self.master, value=0)
 		self.fall_1 = IntVar(self.master, value=0)
 		self.adv_1 = IntVar(self.master, value=0)
 
-		self.name_2 = StringVar(self.master, value='set name 2')
-		self.club_2 = StringVar(self.master, value='club 2')
+		self.name_2 = StringVar(self.master, value='NAME OF SPORTSMAN 1')
+		self.club_2 = StringVar(self.master, value='SPORT CLUB NAME 2')
 		self.points_2 = IntVar(self.master, value=0)
 		self.fall_2 = IntVar(self.master, value=0)
 		self.adv_2 = IntVar(self.master, value=0)

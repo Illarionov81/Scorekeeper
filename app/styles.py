@@ -1,4 +1,3 @@
-from tkinter import *
 from tkinter import ttk
 
 
@@ -20,6 +19,7 @@ class Style:
 		self.label_2_style = 'label_2.TLabel'
 		self.fall_point_style = 'label_3.TLabel'
 		self.dark = 'label_4.TLabel'
+		self.additional_points_style = 'label_5.TLabel'
 
 	def create_all_styles(self):
 		ttk.Style().configure(
@@ -55,7 +55,7 @@ class Style:
 			background='#33313B',
 			foreground="white",
 			anchor="center",
-			font=('Arial', 12, 'bold'),
+			font=('Arial', 26, 'bold'),
 			)
 
 		ttk.Style().configure(
@@ -63,3 +63,10 @@ class Style:
 			background='#33313B',
 			foreground="#C9C9D2",
 			)
+		ttk.Style().configure(
+			self.additional_points_style,
+			background='#33313B',
+			foreground="#C9C9D2",
+			anchor="center",
+			font=('Arial', 18),
+		)

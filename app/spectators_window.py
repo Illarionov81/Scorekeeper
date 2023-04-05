@@ -68,16 +68,23 @@ class SpectatorsWindow:
 		self.frame_placement()
 
 	def update_title(self, *args):
-	    self.window.title(self.title.get())
+		self.window.title(self.title.get())
 
 	def create_window(self):
 		self.window = Toplevel(self.master, bg=self.bg)
 		self.window.attributes("-zoomed", True)
-		self.window.attributes( "-type", "toplevel")
+		self.window.attributes("-fullscreen", False)
+		self.window.bind("<Double-Button-1>", self.toggle_fullscreen)
 
 		# Обновление заголовка окна при изменении переменной StringVar
 		self.window.title(self.title.get())
 		self.title.trace_add("write", self.update_title)
+
+	def toggle_fullscreen(self, event):
+		if not self.window.attributes('-fullscreen'):
+			self.window.attributes('-fullscreen', True)
+		else:
+			self.window.attributes('-fullscreen', False)
 
 	def create_total_info_frame(self):
 		"""First row - info"""
@@ -86,7 +93,7 @@ class SpectatorsWindow:
 		for r in range(1): self.info_frame.rowconfigure(index=r, weight=1)
 		for c in range(3): self.info_frame.columnconfigure(index=c, weight=1)
 
-		self.info_frame.columnconfigure(index=0, weight=33, uniform="row1") 
+		self.info_frame.columnconfigure(index=0, weight=33, uniform="row1")
 		self.info_frame.columnconfigure(index=1, weight=33, uniform="row1")
 		self.info_frame.columnconfigure(index=2, weight=33, uniform="row1")
 
@@ -108,9 +115,7 @@ class SpectatorsWindow:
 		for i in [self.stage, self.group, self.belt]:
 			to_uppercase(text_var=i)
 
-
 	def create_sportsman_1_frame(self):
-		"""Row second - sportsman 1 """
 		self.sportsman_1_frame = Frame(self.window, bg=self.bg)
 
 		val = str(self.flag_path_1.get()).split('/')[-1].split('.')[0]
@@ -126,7 +131,12 @@ class SpectatorsWindow:
 		self.sportsman_1_frame.columnconfigure(index=4, weight=15, uniform="row1") # points
 
 		self.flag_1 = ttk.Label(self.sportsman_1_frame, style=self.dark)
-		flag_label = ttk.Label(self.sportsman_1_frame, textvariable=self.flag_val_1, style=self.dark)
+		flag_label = ttk.Label(self.sportsman_1_frame, textvariable=self.flag_val_1)
+		flag_label.config(
+			style=self.dark,
+			font=('Arial', 18, 'bold'),
+			anchor='n',
+		)
 
 		name=ttk.Label(self.sportsman_1_frame, textvariable=self.name_1, style=self.dark)
 		club=ttk.Label(self.sportsman_1_frame, textvariable=self.club_1, style=self.dark)
@@ -138,7 +148,7 @@ class SpectatorsWindow:
 		adv = ttk.Label(self.sportsman_1_frame, textvariable=self.adv_1, style=self.fall_point_style)
 
 		points=ttk.Label(self.sportsman_1_frame, textvariable=self.points_1, style=self.label_1_style)
-		points.config(font=('Arial', 85, 'bold'))
+		points.config(font=('Arial', 125, 'bold'))
 
 		self.flag_1.grid(row=0, column=0, rowspan=1, sticky='nsew')
 		flag_label.grid(row=1, column=0, rowspan=1, sticky='nsew')
@@ -157,47 +167,66 @@ class SpectatorsWindow:
 	def create_sportsman_2_frame(self):
 		"""Row second - sportsman 1 """
 		self.sportsman_2_frame = Frame(self.window, bg=self.bg)
+		for r in range(2): self.sportsman_2_frame.rowconfigure(index=r, weight=1)
+		for c in range(4): self.sportsman_2_frame.columnconfigure(index=c, weight=1)
+
+		self.sportsman_2_frame.columnconfigure(index=0, weight=5, uniform="col1")   # flag
+		self.sportsman_2_frame.columnconfigure(index=1, weight=71, uniform="col1")  # sportsmen name & club
+		self.sportsman_2_frame.columnconfigure(index=2, weight=4, uniform="col1")   # fall label & adv label
+		self.sportsman_2_frame.columnconfigure(index=3, weight=20, uniform="col1")   # points
+
+		self.sportsman_2_frame.rowconfigure(index=0, weight=70, uniform="row2")
+		self.sportsman_2_frame.rowconfigure(index=1, weight=30, uniform="row2")
 
 		val = str(self.flag_path_2.get()).split('/')[-1].split('.')[0]
 		self.flag_val_2 = StringVar(value=val)
-
-		for r in range(2): self.sportsman_2_frame.rowconfigure(index=r, weight=1)
-		for c in range(5): self.sportsman_2_frame.columnconfigure(index=c, weight=1)
-
-		self.sportsman_2_frame.columnconfigure(index=0, weight=5, uniform="row1") # flag
-		self.sportsman_2_frame.columnconfigure(index=1, weight=80, uniform="row1") # sportsmen name & club
-		self.sportsman_2_frame.columnconfigure(index=2, weight=2, uniform="row1") # fall label & adv label
-		self.sportsman_2_frame.columnconfigure(index=3, weight=2, uniform="row1") # adv fall points
-		self.sportsman_2_frame.columnconfigure(index=4, weight=15, uniform="row1") # points
-
-		self.flag_2 = ttk.Label(self.sportsman_2_frame, style=self.dark)
-		flag_label = ttk.Label(self.sportsman_2_frame, textvariable=self.flag_val_2, style=self.dark)
-
-		name=ttk.Label(self.sportsman_2_frame, textvariable=self.name_2, style=self.dark)
-		club=ttk.Label(self.sportsman_2_frame, textvariable=self.club_2, style=self.dark)
-
-		label_fall = ttk.Label(self.sportsman_2_frame, text='fall', style=self.dark)
-		label_adv = ttk.Label(self.sportsman_2_frame, text='adv', style=self.dark)
-
-		fall = ttk.Label(self.sportsman_2_frame, textvariable=self.fall_2, style=self.fall_point_style)
-		adv = ttk.Label(self.sportsman_2_frame, textvariable=self.adv_2, style=self.fall_point_style)
-
+		self.flag_2 = ttk.Label(self.sportsman_2_frame, textvariable=self.flag_val_2)
+		self.flag_2.config(
+			style=self.dark,
+			compound='top',
+			font=('Arial', 18, 'bold'),
+			anchor="n",
+		)
+		name = ttk.Label(self.sportsman_2_frame, textvariable=self.name_2)
+		name.config(
+			style=self.dark,
+			font=('monospace', 67, 'bold'),
+			anchor='sw',
+		)
+		club = ttk.Label(self.sportsman_2_frame, textvariable=self.club_2)
+		club.config(
+			style=self.dark,
+			font=('Arial', 24, 'bold'),
+			anchor='n',
+		)
 		points=ttk.Label(self.sportsman_2_frame, textvariable=self.points_2, style=self.label_2_style)
-		points.config(font=('Arial', 85, 'bold'))
+		points.config(font=('Arial', 125, 'bold'))
+		self.fall_points_frame = self.additional_points_frame()
 
-		self.flag_2.grid(row=0, column=0, rowspan=1, sticky='nsew')
-		flag_label.grid(row=1, column=0, rowspan=1, sticky='nsew')
+		self.flag_2.grid(row=0, column=0, rowspan=2, sticky='nsew')
 		name.grid(row=0, column=1, sticky='nsew')
 		club.grid(row=1, column=1, sticky='nsew')
-		label_fall.grid(row=0, column=2, sticky='nsew')
-		label_adv.grid(row=1, column=2, sticky='nsew')
-		fall.grid(row=0, column=3, sticky='nsew')
-		adv.grid(row=1, column=3, sticky='nsew')
-		points.grid(row=0, column=4, rowspan=2, sticky='nsew')
+		self.fall_points_frame.grid(row=0, column=2, rowspan=2, sticky='nsew')
+		points.grid(row=0, column=3, rowspan=2, sticky='nsew')
 
 		self.name_2.trace("w", lambda *args: to_uppercase(*args, text_var=self.name_2))
 		self.club_2.trace("w", lambda *args: to_uppercase(*args, text_var=self.club_2))
 		self.flag_path_2.trace("w", self.chenge_flag)
+
+	def additional_points_frame(self):
+		fall_points_frame = Frame(self.sportsman_2_frame, bg=self.bg)
+
+		label_fall = ttk.Label(fall_points_frame, text='fall', style='label_5.TLabel')
+		label_adv = ttk.Label(fall_points_frame, text='adv', style='label_5.TLabel')
+		fall = ttk.Label(fall_points_frame, textvariable=self.fall_2, style=self.fall_point_style)
+		adv = ttk.Label(fall_points_frame, textvariable=self.adv_2, style=self.fall_point_style)
+
+		label_fall.grid(row=0, column=0, sticky='nsew')
+		fall.grid(row=1, column=0, sticky='nsew')
+		label_adv.grid(row=2, column=0, sticky='nsew')
+		adv.grid(row=3, column=0, sticky='nsew')
+
+		return fall_points_frame
 
 	def chenge_flag(self, *args, **kwargs):
 		self.flag_img_1 = PhotoImage(file=self.flag_path_1.get())
@@ -218,10 +247,9 @@ class SpectatorsWindow:
 		for c in range(1): self.timer_frame.columnconfigure(index=c, weight=1)
 
 		self.spectators_timer=ttk.Label(self.timer_frame, textvariable=self.timer, style=self.dark)
-		self.spectators_timer.config(font=('Arial', 96, 'bold'), anchor='c')
+		self.spectators_timer.config(font=('Arial', 125, 'bold'), anchor='c')
 
-
-		self.spectators_timer.grid(row=0, column=0, columnspan=3, rowspan=2)		
+		self.spectators_timer.grid(row=0, column=0, columnspan=3, rowspan=2)
 
 	def frame_placement(self):
 		for i in range(5):
