@@ -1,4 +1,3 @@
-from tkinter import *
 from pathlib import Path
 
 
