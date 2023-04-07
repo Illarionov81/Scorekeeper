@@ -1,3 +1,4 @@
+from pathlib import Path
 from tkinter import TclVersion, PhotoImage, StringVar, IntVar, Tk
 
 import config
@@ -16,6 +17,8 @@ else:
 class App:
     def __init__(self, master):
         self.master = master
+        self.root_path = Path(__file__).parent.parent
+        print(self.root_path)
 
         self.title_of_spectators_window = StringVar(self.master, value='Соревнования по ....')
         self.name_1 = StringVar(self.master, value='SPORTSMAN NAME 1')
@@ -91,7 +94,7 @@ class App:
         self.frame_placement()
 
     def create_main_frame(self):
-        icon = PhotoImage(file="../img/icons/icon.png")
+        icon = PhotoImage(file=f"{self.root_path}/img/icons/icon.png")
         self.master.iconphoto(False, icon)
         self.master.title("Carpe Diem")
         self.master.configure(bg=config.CONTROL_GENERAL_BG)
@@ -117,9 +120,3 @@ class App:
         self.time_frame.frame.grid(row=3, column=0, sticky='nsew')
         self.athlete_1.frame.grid(row=4, column=0, sticky='nsew')
         self.athlete_2.frame.grid(row=5, column=0, sticky='nsew')
-
-
-if __name__ == '__main__':
-    root = Tk()
-    app = App(root)
-    root.mainloop()

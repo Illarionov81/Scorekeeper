@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Scorekeeper
+Exec=/usr/bin/python /home/alex/Documents/python/Sparring_Scorekeeper/app/start.py
+Icon=/home/alex/Documents/python/Sparring_Scorekeeper/img/icons/icon.png
