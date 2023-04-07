@@ -1,11 +1,13 @@
 import threading
-from tkinter import *
-from tkinter import ttk
+from tkinter import ttk, Frame
+
+import config
 
 
 class TimeFrame:
     def __init__(self, master, timer, championship_timer):
         self.master = master
+        self.frame = None
         self.timer = timer
         self.championship_timer = championship_timer
         self.started = False
@@ -20,30 +22,35 @@ class TimeFrame:
         # установка начального значения времени
         self.timer.set("{:02d}:{:02d}".format(self.default_time // 60, self.default_time % 60))
 
-        for c in range(4): self.frame.columnconfigure(index=c, weight=1)
-        for r in range(3): self.frame.rowconfigure(index=r, weight=1)
+        for c in range(4):
+            self.frame.columnconfigure(index=c, weight=1)
+
+        for r in range(3):
+            self.frame.rowconfigure(index=r, weight=1)
 
         self.entry_timer = ttk.Entry(self.frame, textvariable=self.timer, font=('Arial', 18), justify='center')
-        self.entry_timer.grid(row=0, column=0, columnspan=4, sticky='ns')
         self.start = ttk.Button(self.frame, text="Start", command=self.start_timer)
-        self.start.grid(row=1, column=0, rowspan=2, sticky='nsew')
         self.reset = ttk.Button(self.frame, text="Reset", command=self.reset_timer)
+
+        mp = ttk.Button(self.frame, text="+1 min", command=lambda: self.change_time(60))
+        mm = ttk.Button(self.frame, text="-1 min", command=lambda: self.change_time(-60))
+        sec_p = ttk.Button(self.frame, text="+1 sec", command=lambda: self.change_time(1))
+        sec_m = ttk.Button(self.frame, text="-1 sec", command=lambda: self.change_time(-1))
+
+        self.entry_timer.grid(row=0, column=0, columnspan=4, sticky='ns')
+        self.start.grid(row=1, column=0, rowspan=2, sticky='nsew')
         self.reset.grid(row=1, column=3, rowspan=2, sticky='nsew')
-        mp = ttk.Button(self.frame, text="+1 min", command=lambda: self.change_time(60)).grid(row=1, column=1,
-                                                                                              sticky='nsew')
-        mm = ttk.Button(self.frame, text="- 1 min", command=lambda: self.change_time(-60)).grid(row=1, column=2,
-                                                                                                sticky='nsew')
-        secp = ttk.Button(self.frame, text="+1 sec", command=lambda: self.change_time(1)).grid(row=2, column=1,
-                                                                                               sticky='nsew')
-        secm = ttk.Button(self.frame, text="-1 sec", command=lambda: self.change_time(-1)).grid(row=2, column=2,
-                                                                                                sticky='nsew')
+        mp.grid(row=1, column=1, sticky='nsew')
+        mm.grid(row=1, column=2, sticky='nsew')
+        sec_p.grid(row=2, column=1, sticky='nsew')
+        sec_m.grid(row=2, column=2, sticky='nsew')
 
     def reset_timer(self):
         self.started = False
         self.on_pause = False
         self.start.configure(text='Start')
         self.entry_timer.configure(foreground='black')
-        self.championship_timer.configure(foreground="#C9C9D2")
+        self.championship_timer.configure(foreground=config.SPECTATORS_TIMER_COLOR)
         self.timer.set("{:02d}:{:02d}".format(self.default_time // 60, self.default_time % 60))
 
     def start_timer(self):

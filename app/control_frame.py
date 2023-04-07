@@ -1,6 +1,6 @@
-from tkinter import *
-from tkinter import ttk
+from tkinter import ttk, Frame, StringVar, PhotoImage
 
+import config
 from utils import get_all_country
 
 
@@ -9,12 +9,6 @@ class ControlPanel:
             self,
             master,
             title,
-            color_1,
-            color_2,
-            entry_style_1,
-            entry_style_2,
-            label_1_style,
-            label_2_style,
             name_1,
             club_1,
             points_1,
@@ -29,12 +23,6 @@ class ControlPanel:
     ):
         self.master = master
         self.title = title
-        self.color_1 = color_1,
-        self.color_2 = color_2,
-        self.entry_style_1 = entry_style_1,
-        self.entry_style_2 = entry_style_2,
-        self.label_1_style = label_1_style
-        self.label_2_style = label_2_style
         self.name_1 = name_1
         self.club_1 = club_1
         self.points_1 = points_1
@@ -48,14 +36,17 @@ class ControlPanel:
         self.timer = timer
         self.create_general_info_frame()
         self.create_flag_choice()
-        self.create_sporsmens_frame()
+        self.create_sportsman_frame()
 
     def create_general_info_frame(self):
         self.general_info_frame = Frame(self.master)
-        self.general_info_frame.configure(bg='#A09DA5')
+        self.general_info_frame.configure(bg=config.CONTROL_GENERAL_BG)
 
-        for r in range(5): self.general_info_frame.rowconfigure(index=r, weight=1)
-        for c in range(3): self.general_info_frame.columnconfigure(index=c, weight=1)
+        for r in range(5):
+            self.general_info_frame.rowconfigure(index=r, weight=1)
+
+        for c in range(3):
+            self.general_info_frame.columnconfigure(index=c, weight=1)
 
         self.stage_val = StringVar()
         self.group_val = StringVar()
@@ -120,9 +111,13 @@ class ControlPanel:
 
     def create_flag_choice(self):
         self.flag_choice_frame = Frame(self.master)
-        self.flag_choice_frame.configure(bg='#A09DA5')
-        for r in range(1): self.flag_choice_frame.rowconfigure(index=r, weight=1)
-        for c in range(4): self.flag_choice_frame.columnconfigure(index=c, weight=1)
+        self.flag_choice_frame.configure(bg=config.CONTROL_GENERAL_BG)
+
+        for r in range(1):
+            self.flag_choice_frame.rowconfigure(index=r, weight=1)
+
+        for c in range(4):
+            self.flag_choice_frame.columnconfigure(index=c, weight=1)
 
         country_name = sorted(get_all_country())
         self.flag_str = "./../img/flags-iso/{country}"
@@ -163,9 +158,9 @@ class ControlPanel:
             self.flag_path_2 = flag_path
             self.flag_img_2 = self.change_flag(width, self.flag_2, flag_path)
 
-    def create_sporsmens_frame(self):
+    def create_sportsman_frame(self):
         self.sportsman_frame = Frame(self.master)
-        self.sportsman_frame.configure(bg='#A09DA5')
+        self.sportsman_frame.configure(bg=config.CONTROL_GENERAL_BG)
 
         for r in range(8): self.sportsman_frame.rowconfigure(index=r, weight=1)
         for c in range(5): self.sportsman_frame.columnconfigure(index=c, weight=1)
@@ -181,7 +176,7 @@ class ControlPanel:
         club_1 = ttk.Entry(self.sportsman_frame, textvariable=self.club_1)
         fall_1 = ttk.Entry(self.sportsman_frame, textvariable=self.fall_1, justify='center')
         adv_1 = ttk.Entry(self.sportsman_frame, textvariable=self.adv_1, justify='center')
-        points_1 = ttk.Entry(self.sportsman_frame, textvariable=self.points_1, style=self.entry_style_1,
+        points_1 = ttk.Entry(self.sportsman_frame, textvariable=self.points_1, style=config.ENTRY_STYLE_1,
                              font=('Arial', 18, 'bold'), justify='center')
 
         self.flag_2 = ttk.Label(self.sportsman_frame)
@@ -189,13 +184,13 @@ class ControlPanel:
         club_2 = ttk.Entry(self.sportsman_frame, textvariable=self.club_2)
         fall_2 = ttk.Entry(self.sportsman_frame, textvariable=self.fall_2, justify='center')
         adv_2 = ttk.Entry(self.sportsman_frame, textvariable=self.adv_2, justify='center')
-        points_2 = ttk.Entry(self.sportsman_frame, textvariable=self.points_2, style=self.entry_style_2,
+        points_2 = ttk.Entry(self.sportsman_frame, textvariable=self.points_2, style=config.ENTRY_STYLE_2,
                              font=('Arial', 18, 'bold'), justify='center')
 
-        label_1_fall = ttk.Label(self.sportsman_frame, text='fall', style=self.label_1_style)
-        label_1_adv = ttk.Label(self.sportsman_frame, text='adv', style=self.label_1_style)
-        label_2_fall = ttk.Label(self.sportsman_frame, text='fall', style=self.label_2_style)
-        label_2_adv = ttk.Label(self.sportsman_frame, text='adv', style=self.label_2_style)
+        label_1_fall = ttk.Label(self.sportsman_frame, text='fall', style=config.LABEL_STYLE_1)
+        label_1_adv = ttk.Label(self.sportsman_frame, text='adv', style=config.LABEL_STYLE_1)
+        label_2_fall = ttk.Label(self.sportsman_frame, text='fall', style=config.LABEL_STYLE_2)
+        label_2_adv = ttk.Label(self.sportsman_frame, text='adv', style=config.LABEL_STYLE_2)
 
         self.flag_1.grid(row=0, column=0, rowspan=2, sticky='nsew')
         name_1.grid(row=0, column=1, sticky='nsew')
@@ -217,7 +212,8 @@ class ControlPanel:
 
         self.sportsman_frame.bind('<Configure>', self.img_size_configure)
 
-    def change_flag(self, width, flag, flag_path):
+    @staticmethod
+    def change_flag(width, flag, flag_path):
         rate = 1
         if width <= 650:
             rate = 3
