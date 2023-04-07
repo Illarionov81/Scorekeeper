@@ -1,3 +1,4 @@
+from pathlib import Path
 from tkinter import ttk, Frame, StringVar, PhotoImage
 
 import config
@@ -22,6 +23,7 @@ class ControlPanel:
             timer,
     ):
         self.master = master
+        self.root_path = Path(__file__).parent.parent
         self.title = title
         self.name_1 = name_1
         self.club_1 = club_1
@@ -120,11 +122,13 @@ class ControlPanel:
             self.flag_choice_frame.columnconfigure(index=c, weight=1)
 
         country_name = sorted(get_all_country())
-        self.flag_str = "./../img/flags-iso/{country}"
+
+        self.flag_str = "{root_path}/img/flags-iso/{country}"
         self.flag_var_1 = StringVar(value='KG.png')
         self.flag_var_2 = StringVar(value='KG.png')
-        self.flag_path_1 = self.flag_str.format(country=self.flag_var_1.get())
-        self.flag_path_2 = self.flag_str.format(country=self.flag_var_2.get())
+        self.flag_path_1 = self.flag_str.format(root_path=self.root_path, country=self.flag_var_1.get())
+        self.flag_path_2 = self.flag_str.format(root_path=self.root_path, country=self.flag_var_2.get())
+
         self.flag_path_1_for_spectators = StringVar(value=self.flag_path_1)
         self.flag_path_2_for_spectators = StringVar(value=self.flag_path_2)
 
@@ -147,7 +151,7 @@ class ControlPanel:
 
     def select_flag(self, event):
         selected = event.widget.get()
-        flag_path = self.flag_str.format(country=selected)
+        flag_path = self.flag_str.format(root_path=self.root_path, country=selected)
         width = self.sportsman_frame.winfo_width()
         if event.widget == self.flag_box1:
             self.flag_path_1_for_spectators.set(flag_path)
