@@ -50,10 +50,10 @@ class AthleteInfo:
         for c in range(4):
             self.sportsman_frame.columnconfigure(index=c, weight=1)
 
-        self.sportsman_frame.columnconfigure(index=0, weight=5, uniform="col1")  # flag
-        self.sportsman_frame.columnconfigure(index=1, weight=71, uniform="col1")  # sportsmen name & club
+        self.sportsman_frame.columnconfigure(index=0, weight=8, uniform="col1")  # flag
+        self.sportsman_frame.columnconfigure(index=1, weight=64, uniform="col1")  # sportsmen name & club
         self.sportsman_frame.columnconfigure(index=2, weight=4, uniform="col1")  # fall label & adv label
-        self.sportsman_frame.columnconfigure(index=3, weight=20, uniform="col1")  # points
+        self.sportsman_frame.columnconfigure(index=3, weight=24, uniform="col1")  # points
 
         self.sportsman_frame.rowconfigure(index=0, weight=70, uniform="row2")
         self.sportsman_frame.rowconfigure(index=1, weight=30, uniform="row2")
@@ -70,7 +70,7 @@ class AthleteInfo:
         name = ttk.Label(self.sportsman_frame, textvariable=self.name)
         name.config(
             style=config.SPECTATORS_THEME_DARK,
-            font=('monospace', 72, 'bold'),
+            font=('monospace', 58, 'bold'),
             anchor='sw',
         )
         club = ttk.Label(self.sportsman_frame, textvariable=self.club)
