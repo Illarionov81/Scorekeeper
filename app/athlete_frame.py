@@ -6,25 +6,23 @@ from utils import click_button
 class AthleteFrame:
     def __init__(
             self,
-            master,
+            main,
             points,
             adv,
             fall,
             color,
             style_name,
     ):
-        self.master = master
+        self.main = main
         self.points = points
         self.adv = adv
         self.fall = fall
         self.color = color
-        self.frame = None
+        self.frame = Frame(self.main)
         self.style_name = style_name
         self.create_frame()
 
     def create_frame(self):
-        self.frame = Frame(self.master)
-
         for c in range(8):
             self.frame.columnconfigure(index=c, weight=1)
 
