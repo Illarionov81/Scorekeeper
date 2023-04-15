@@ -1,4 +1,5 @@
 from pathlib import Path
+from tkinter import PhotoImage
 
 
 def to_uppercase(*args, text_var):
@@ -21,3 +22,16 @@ def get_all_country():
         if file_path.is_file():
             names.append(file_path.name)
     return names
+
+
+def change_flag(width, flag, flag_path):
+    rate = 1
+    if width <= 650:
+        rate = 3
+    if 650 < width <= 1150:
+        rate = 2
+
+    flag_img = PhotoImage(file=flag_path)
+    flag_img = flag_img.subsample(rate)
+    flag.config(image=flag_img, anchor="center")
+    return flag_img

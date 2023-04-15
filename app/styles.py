@@ -21,7 +21,7 @@ def create_styles():
         background=config.ATHLETE_1_COLOR,
         foreground="white",
         anchor="center",
-        font=('Arial', 8, 'bold'),
+        font=('Roboto', 8, 'bold'),
     )
 
     ttk.Style().configure(
@@ -29,7 +29,7 @@ def create_styles():
         background=config.ATHLETE_2_COLOR,
         foreground="white",
         anchor="center",
-        font=('Arial', 8, 'bold'),
+        font=('Roboto', 8, 'bold'),
     )
 
     ttk.Style().configure(

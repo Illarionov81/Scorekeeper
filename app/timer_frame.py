@@ -5,8 +5,8 @@ import config
 
 
 class TimeFrame:
-    def __init__(self, master, timer, championship_timer):
-        self.master = master
+    def __init__(self, main, timer, championship_timer):
+        self.main = main
         self.frame = None
         self.timer = timer
         self.championship_timer = championship_timer
@@ -17,7 +17,7 @@ class TimeFrame:
         self.create_frame()
 
     def create_frame(self):
-        self.frame = Frame(self.master)
+        self.frame = Frame(self.main)
 
         # установка начального значения времени
         self.timer.set("{:02d}:{:02d}".format(self.default_time // 60, self.default_time % 60))
