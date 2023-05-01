@@ -217,7 +217,6 @@ class SpectatorsWindow:
         self.window.title(self.title.get())
 
     def create_window(self):
-        self.window.attributes("-zoomed", True)
         self.window.attributes("-fullscreen", False)
         self.window.bind("<Double-Button-1>", self.toggle_fullscreen)
 

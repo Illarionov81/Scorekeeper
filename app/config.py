@@ -5,11 +5,11 @@ CONTROL_GENERAL_BG='#A09DA5'
 ATHLETE_1_COLOR = '#CC443E'
 ATHLETE_2_COLOR = '#2A4EB9'
 
-SET_BUTTON_1 = '1.TButton'
-SET_BUTTON_2 = '2.TButton'
+SET_BUTTON_1 = 'Sportsman_1.TButton'
+SET_BUTTON_2 = 'Sportsman_2.TButton'
 
-ENTRY_STYLE_1 = '1.TEntry'
-ENTRY_STYLE_2 = '2.TEntry'
+ENTRY_STYLE_1 = 'Sportsman_1.TEntry'
+ENTRY_STYLE_2 = 'Sportsman_2.TEntry'
 
 LABEL_STYLE_1 = 'label_1.TLabel'
 LABEL_STYLE_2 = 'label_2.TLabel'
